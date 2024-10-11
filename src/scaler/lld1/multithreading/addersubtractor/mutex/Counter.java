@@ -1,4 +1,4 @@
-package scaler.lld1.multithreading.addersubtractor;
+package scaler.lld1.multithreading.addersubtractor.mutex;
 
 public class Counter {
 

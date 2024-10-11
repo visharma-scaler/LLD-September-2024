@@ -1,4 +1,7 @@
-package scaler.lld1.multithreading.addersubtractor;
+package scaler.lld1.multithreading.addersubtractor.synchronisedkeyword;
+
+
+import java.util.concurrent.locks.Lock;
 
 public class Subtractor implements Runnable {
 
@@ -11,7 +14,9 @@ public class Subtractor implements Runnable {
     @Override
     public void run() {
         for (int i = 1; i <= 10000; i++) {
-            counter.setValue(counter.getValue() - i);
+//            synchronized (counter) {
+                counter.decrementValue(i);
+//            }
         }
     }
 }
