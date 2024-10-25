@@ -1,4 +1,4 @@
-# Exception handling and annotations
+# Exception handling
 - [Exception handling and annotations](#exception-handling-and-annotations)
     - [Exceptions](#exceptions)
         - [Types of Exceptions](#types-of-exceptions)
