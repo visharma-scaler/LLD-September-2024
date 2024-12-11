@@ -40,7 +40,7 @@ public class Client {
         if (gameController.getGameState(game).equals(GameState.DRAW)) {
             System.out.println("Game has been drawn");
         } else {
-            System.out.println("The winner is:- " + gameController.getWinner(game));
+            System.out.println("The winner is:- " + gameController.getWinner(game).getName());
         }
     }
 }

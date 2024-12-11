@@ -15,12 +15,12 @@ public class GameController {
     public Game startGame(int sizeOfBoard, List<Player> players, List<WinningStrategy> winningStrategies) throws DuplicateSymbolException, PlayerAndDimensionMismatchException, MoreThanOneBotException {
         return Game.builder()
                 .setSizeOfBoard(sizeOfBoard)
-//                .setPlayers(players)
-//                .setWinningStrategies(winningStrategies)
+                .setPlayers(players)
+                .setWinningStrategies(winningStrategies)
 //                .addPlayer(new Player())
 //                .addPlayer(new Player())
-                .addWinningStrategy(winningStrategies.get(0))
-                .addWinningStrategy(winningStrategies.get(1))
+//                .addWinningStrategy(winningStrategies.get(0))
+//                .addWinningStrategy(winningStrategies.get(1))
                 .build();
     }
 
@@ -29,15 +29,14 @@ public class GameController {
     }
 
     public void displayBoard(Game game) {
-
+        game.display();
     }
 
     public void makeMove(Game game) {
+        game.makeMove();
     }
 
     public Player getWinner(Game game) {
         return game.getWinner();
     }
-
-
 }

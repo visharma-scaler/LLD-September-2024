@@ -18,6 +18,12 @@ public class Game {
     private List<WinningStrategy> winningStrategies;
 
     private Game(int size, List<Player> players, List<WinningStrategy> winningStrategies) {
+        this.board = new Board(size);
+        this.players = players;
+        this.moves = new ArrayList<>();
+        this.state = GameState.IN_PROGRESS;
+        this.nextPlayerMoveIndex = 0;
+        this.winningStrategies = winningStrategies;
     }
 
     public static GameBuilder builder() {
@@ -50,6 +56,70 @@ public class Game {
 
     public List<WinningStrategy> getWinningStrategies() {
         return winningStrategies;
+    }
+
+    public void display() {
+        board.display();
+    }
+
+    public void makeMove() {
+        Player currentPlayer = this.players.get(nextPlayerMoveIndex);
+        System.out.println(String.format("It's %s's turn. Please make your move.", currentPlayer.getName()));
+
+        Move move = currentPlayer.makeMove(board);
+        System.out.println(String.format("%s has made a move at row: %s and column: %s", currentPlayer.getName(), move.getCell().getRow(), move.getCell().getCol()));
+
+        if (!isValidMove(move)) {
+            System.out.println("Invalid Move! Please try again ...");
+            return;
+        }
+
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+        Cell cellToChange = board.getBoard().get(row).get(col);
+        cellToChange.setCellState(CellState.FILLED);
+        cellToChange.setPlayer(move.getPlayer());
+
+        Move finalMove = new Move(cellToChange, currentPlayer);
+        moves.add(finalMove);
+
+        nextPlayerMoveIndex = (nextPlayerMoveIndex + 1) % players.size();
+
+
+        if (checkWinner(board, finalMove)) {
+            state = GameState.WIN;
+            winner = currentPlayer;
+        } else if (moves.size() == this.board.getSize() * this.board.getSize()) {
+            state = GameState.DRAW;
+        }
+    }
+
+    private boolean checkWinner(Board board, Move lastMove) {
+        for (WinningStrategy winningStrategy : winningStrategies) {
+            if (winningStrategy.checkWinner(board, lastMove)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isValidMove(Move move) {
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        if (row >= board.getSize()) {
+            return false;
+        }
+
+        if (col >= board.getSize()) {
+            return false;
+        }
+
+        if (board.getBoard().get(row).get(col).getCellState() != CellState.EMPTY) {
+            return false;
+        }
+
+        return true;
     }
 
     public static class GameBuilder {
@@ -89,10 +159,14 @@ public class Game {
         }
 
         public Game build() throws MoreThanOneBotException, PlayerAndDimensionMismatchException, DuplicateSymbolException {
+            validate();
+            return new Game(size, players, winningStrategies);
+        }
+
+        private void validate() throws MoreThanOneBotException, PlayerAndDimensionMismatchException, DuplicateSymbolException {
             validateBot();
             validatePlayerAndDimension();
             validateSymbols();
-            return new Game(size, players, winningStrategies);
         }
 
         private void validateSymbols() throws DuplicateSymbolException {
