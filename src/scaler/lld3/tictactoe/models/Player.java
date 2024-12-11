@@ -6,6 +6,13 @@ public class Player {
     private Symbol symbol;
     private PlayerType type;
 
+    public Player(Long id, String name, Symbol symbol, PlayerType type) {
+        this.id = id;
+        this.name = name;
+        this.symbol = symbol;
+        this.type = type;
+    }
+
     public Long getId() {
         return id;
     }
