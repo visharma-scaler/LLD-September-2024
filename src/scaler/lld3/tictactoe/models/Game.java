@@ -7,6 +7,7 @@ import scaler.lld3.tictactoe.strategies.winningstrategies.WinningStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Game {
     private Board board;
@@ -120,6 +121,24 @@ public class Game {
         }
 
         return true;
+    }
+
+    public Optional<Move> undo() {
+        if (moves.isEmpty()) {
+            System.out.println("No moves to undo!");
+            return Optional.empty();
+        }
+
+        Move lastMove = moves.get(moves.size() - 1);
+        moves.remove(lastMove);
+
+        lastMove.getCell().reset();
+
+        nextPlayerMoveIndex = (nextPlayerMoveIndex + players.size() - 1) % players.size();
+
+        winningStrategies.forEach(winningStrategy -> winningStrategy.handleUndo(board, lastMove));
+
+        return Optional.of(lastMove);
     }
 
     public static class GameBuilder {

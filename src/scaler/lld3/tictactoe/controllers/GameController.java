@@ -5,10 +5,12 @@ import scaler.lld3.tictactoe.exceptions.MoreThanOneBotException;
 import scaler.lld3.tictactoe.exceptions.PlayerAndDimensionMismatchException;
 import scaler.lld3.tictactoe.models.Game;
 import scaler.lld3.tictactoe.models.GameState;
+import scaler.lld3.tictactoe.models.Move;
 import scaler.lld3.tictactoe.models.Player;
 import scaler.lld3.tictactoe.strategies.winningstrategies.WinningStrategy;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GameController {
 
@@ -38,5 +40,9 @@ public class GameController {
 
     public Player getWinner(Game game) {
         return game.getWinner();
+    }
+
+    public Optional<Move> undo(Game game) {
+        return game.undo();
     }
 }

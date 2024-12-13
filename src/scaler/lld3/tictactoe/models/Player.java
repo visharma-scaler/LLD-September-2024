@@ -1,5 +1,6 @@
 package scaler.lld3.tictactoe.models;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Player {

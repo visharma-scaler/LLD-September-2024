@@ -36,4 +36,9 @@ public class Cell {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
+    public void reset() {
+        this.cellState = CellState.EMPTY;
+        this.player = null;
+    }
 }

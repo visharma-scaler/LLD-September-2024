@@ -6,15 +6,18 @@ import scaler.lld3.tictactoe.exceptions.MoreThanOneBotException;
 import scaler.lld3.tictactoe.exceptions.PlayerAndDimensionMismatchException;
 import scaler.lld3.tictactoe.models.*;
 import scaler.lld3.tictactoe.strategies.winningstrategies.ColumnWinningStrategy;
+import scaler.lld3.tictactoe.strategies.winningstrategies.DiagonalWinningStrategy;
 import scaler.lld3.tictactoe.strategies.winningstrategies.RowWinningStrategy;
 import scaler.lld3.tictactoe.strategies.winningstrategies.WinningStrategy;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws DuplicateSymbolException, PlayerAndDimensionMismatchException, MoreThanOneBotException {
 
         GameController gameController = new GameController(); // singleton
+        Scanner scanner = new Scanner(System.in);
 
         int sizeOfBoard = 3;
 
@@ -25,7 +28,8 @@ public class Client {
 
         List<WinningStrategy> winningStrategies = List.of(
                 new RowWinningStrategy(),
-                new ColumnWinningStrategy()
+                new ColumnWinningStrategy(),
+                new DiagonalWinningStrategy()
         );
 
 
@@ -33,14 +37,23 @@ public class Client {
 
         while (gameController.getGameState(game).equals(GameState.IN_PROGRESS)) {
             gameController.displayBoard(game);
+
+            System.out.println("Do you want to undo? (y/n) ");
+            String undoAnswer = scanner.next();
+            if (undoAnswer.equalsIgnoreCase("y")) {
+                gameController.undo(game);
+                continue;
+            }
             gameController.makeMove(game);
         }
+
+        gameController.displayBoard(game);
 
 
         if (gameController.getGameState(game).equals(GameState.DRAW)) {
             System.out.println("Game has been drawn");
         } else {
-            System.out.println("The winner is:- " + gameController.getWinner(game).getName());
+            System.out.println("Game had finished and the winner is:- " + gameController.getWinner(game).getName());
         }
     }
 }

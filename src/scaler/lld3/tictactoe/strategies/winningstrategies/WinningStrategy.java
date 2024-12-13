@@ -5,4 +5,6 @@ import scaler.lld3.tictactoe.models.Move;
 
 public interface WinningStrategy {
     boolean checkWinner(Board board, Move lastMove);
+
+    void handleUndo(Board board, Move undoMove);
 }
