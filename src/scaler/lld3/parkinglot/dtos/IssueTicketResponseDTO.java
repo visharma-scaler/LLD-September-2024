@@ -30,4 +30,13 @@ public class IssueTicketResponseDTO {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "IssueTicketResponseDTO{" +
+                "ticket=" + ticket +
+                ", status=" + status +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

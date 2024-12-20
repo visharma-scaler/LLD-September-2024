@@ -1,25 +1,42 @@
 package scaler.lld3.parkinglot.dtos;
 
-import scaler.lld3.parkinglot.models.ParkingSpot;
-import scaler.lld3.parkinglot.models.Vehicle;
+import scaler.lld3.parkinglot.models.VehicleType;
 
 public class IssueTicketRequestDTO {
-    private Vehicle vehicle;
-    private ParkingSpot parkingSpot;
+    private VehicleType vehicleType;
+    private String vehicleNumber;
+    private String vehicleOwnerName;
+    private Long gateId;
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public VehicleType getVehicleType() {
+        return vehicleType;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
-    public ParkingSpot getParkingSpot() {
-        return parkingSpot;
+    public String getVehicleNumber() {
+        return vehicleNumber;
     }
 
-    public void setParkingSpot(ParkingSpot parkingSpot) {
-        this.parkingSpot = parkingSpot;
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
+    }
+
+    public String getVehicleOwnerName() {
+        return vehicleOwnerName;
+    }
+
+    public void setVehicleOwnerName(String vehicleOwnerName) {
+        this.vehicleOwnerName = vehicleOwnerName;
+    }
+
+    public Long getGateId() {
+        return gateId;
+    }
+
+    public void setGateId(Long gateId) {
+        this.gateId = gateId;
     }
 }
